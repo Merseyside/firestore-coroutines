@@ -1,5 +1,5 @@
 plugins {
-    plugin(LibraryDeps.Plugins.androidApplication)
+    plugin(LibraryDeps.Plugins.androidLibrary)
     plugin(LibraryDeps.Plugins.kotlinAndroid)
     plugin(LibraryDeps.Plugins.kotlinSerialization)
     plugin(LibraryDeps.Plugins.jitpack)
