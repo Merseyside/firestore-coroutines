@@ -10,8 +10,8 @@ object LibraryVersions {
         const val targetSdk = 29
         const val minSdk = 17
 
-        const val version = "1.0.0"
-        const val versionCode = 100
+        const val version = "1.0.1"
+        const val versionCode = 101
     }
 
     object Common {
