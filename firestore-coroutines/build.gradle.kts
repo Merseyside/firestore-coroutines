@@ -1,21 +1,21 @@
 plugins {
-    plugin(LibraryDeps.Plugins.androidLibrary)
-    plugin(LibraryDeps.Plugins.kotlinAndroid)
-    plugin(LibraryDeps.Plugins.kotlinSerialization)
-    plugin(LibraryDeps.Plugins.jitpack)
+    plugin(FirestoreLibraryDeps.Plugins.androidLibrary)
+    plugin(FirestoreLibraryDeps.Plugins.kotlinAndroid)
+    plugin(FirestoreLibraryDeps.Plugins.kotlinSerialization)
+    plugin(FirestoreLibraryDeps.Plugins.mavenPublish)
 }
 
-group = "com.github.Merseyside"
-version = LibraryVersions.Android.version
+group = FirestoreLibraryVersions.Application.groupId
+version = FirestoreLibraryVersions.Application.version
 
 android {
-    compileSdkVersion(LibraryVersions.Android.compileSdk)
+    compileSdkVersion(FirestoreLibraryVersions.Application.compileSdk)
 
     defaultConfig {
-        minSdkVersion(LibraryVersions.Android.minSdk)
-        targetSdkVersion(LibraryVersions.Android.targetSdk)
-        versionCode = LibraryVersions.Android.versionCode
-        versionName = LibraryVersions.Android.version
+        minSdkVersion(FirestoreLibraryVersions.Application.minSdk)
+        targetSdkVersion(FirestoreLibraryVersions.Application.targetSdk)
+        versionCode = FirestoreLibraryVersions.Application.versionCode
+        versionName = FirestoreLibraryVersions.Application.version
 
         multiDexEnabled = true
     }
@@ -64,9 +64,9 @@ android {
 }
 
 val androidLibs = listOf(
-    LibraryDeps.Libs.Android.firebaseFirestore,
-    LibraryDeps.Libs.Android.coroutines,
-    LibraryDeps.Libs.Android.utils
+    FirestoreLibraryDeps.Libs.firebaseFirestore,
+    FirestoreLibraryDeps.Libs.coroutines,
+    FirestoreLibraryDeps.Libs.utils
 )
 
 dependencies {
@@ -75,6 +75,17 @@ dependencies {
     androidLibs.forEach { lib -> implementation(lib) }
 }
 
-repositories {
-    mavenCentral()
+afterEvaluate {
+    publishing.publications {
+        create<MavenPublication>("release") {
+            groupId = group.toString()
+            artifactId = project.name
+            version = rootProject.version.toString()
+            from(components["release"])
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
 }

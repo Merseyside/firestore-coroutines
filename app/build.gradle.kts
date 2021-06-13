@@ -1,16 +1,18 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    plugin(LibraryDeps.Plugins.androidApplication)
-    plugin(LibraryDeps.Plugins.kotlinAndroid)
+    plugin(FirestoreLibraryDeps.Plugins.androidApplication)
+    plugin(FirestoreLibraryDeps.Plugins.kotlinAndroid)
 }
 
 android {
-    compileSdkVersion(LibraryVersions.Android.compileSdk)
+    compileSdkVersion(FirestoreLibraryVersions.Application.compileSdk)
 
     defaultConfig {
-        minSdkVersion(LibraryVersions.Android.minSdk)
-        targetSdkVersion(LibraryVersions.Android.targetSdk)
-        versionCode = LibraryVersions.Android.versionCode
-        versionName = LibraryVersions.Android.version
+        minSdkVersion(FirestoreLibraryVersions.Application.minSdk)
+        targetSdkVersion(FirestoreLibraryVersions.Application.targetSdk)
+        versionCode = FirestoreLibraryVersions.Application.versionCode
+        versionName = FirestoreLibraryVersions.Application.version
     }
 
     buildTypes {
@@ -49,7 +51,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "1.8"
         }
@@ -57,8 +59,8 @@ android {
 }
 
 val androidLibs = listOf(
-    LibraryDeps.Libs.Android.appCompat,
-    LibraryDeps.Libs.Android.material
+    FirestoreLibraryDeps.Libs.appCompat,
+    FirestoreLibraryDeps.Libs.material
 )
 
 dependencies {

@@ -1,3 +1,3 @@
-include(":app", ":library")
+include(":app", ":firestore-coroutines")
 
 rootProject.name = "firestore-coroutines"
