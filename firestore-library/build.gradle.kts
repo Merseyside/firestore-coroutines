@@ -1,21 +1,16 @@
 plugins {
-    id(Plugins.androidLibrary)
+    id(Plugins.androidConvention)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinSerialization)
-    id(Plugins.mavenPublish)
+    id(Plugins.mavenPublishConfig)
 }
 
-group = Versions.Application.groupId
-version = Versions.Application.version
-
 android {
-    compileSdkVersion(Versions.Application.compileSdk)
+    compileSdk = Application.compileSdk
 
     defaultConfig {
-        minSdkVersion(Versions.Application.minSdk)
-        targetSdkVersion(Versions.Application.targetSdk)
-        versionCode = Versions.Application.versionCode
-        versionName = Versions.Application.version
+        minSdk = Application.minSdk
+        targetSdk = Application.targetSdk
     }
 
     buildTypes {
@@ -39,26 +34,12 @@ android {
 }
 
 val android = listOf(
-    androidLibs.firebaseFirestore,
+    common.merseyLib.kotlin.ext,
+    androidLibs.firebase.firestore,
     androidLibs.coroutines,
     androidLibs.merseyLib.utils
 )
 
 dependencies {
     android.forEach { lib -> implementation(lib) }
-}
-
-afterEvaluate {
-    publishing.publications {
-        create<MavenPublication>("release") {
-            groupId = group.toString()
-            artifactId = project.name
-            version = rootProject.version.toString()
-            from(components["release"])
-        }
-    }
-
-    repositories {
-        mavenCentral()
-    }
 }

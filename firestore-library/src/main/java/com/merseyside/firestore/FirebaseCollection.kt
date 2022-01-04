@@ -1,8 +1,9 @@
 package com.merseyside.firestore
 
 import com.google.firebase.firestore.CollectionReference
-import com.merseyside.utils.ext.isNotNullAndEmpty
-import com.merseyside.utils.ext.log
+import com.merseyside.merseyLib.kotlin.extensions.isNotNullAndEmpty
+import com.merseyside.merseyLib.kotlin.extensions.log
+
 import kotlinx.coroutines.async
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -109,7 +110,7 @@ class FirebaseCollection<T: IFirestoreInstance> internal constructor(
     ) {
 
         if (documentPath.isNotNullAndEmpty()) {
-            collection.document(documentPath!!).get()
+            collection.document(documentPath).get()
                 .addOnSuccessListener { response ->
                     if (isLog) {
                         response?.data?.log(this, "response = ")
