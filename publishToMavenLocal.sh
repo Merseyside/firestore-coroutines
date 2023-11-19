@@ -1,1 +1,1 @@
-./gradlew -PlibraryPublish :firestore-library:publishToMavenLocal
+./gradlew -PlibraryPublish :firestore-coroutine-adapter:publishToMavenLocal

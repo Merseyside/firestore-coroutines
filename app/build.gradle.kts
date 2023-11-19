@@ -1,6 +1,8 @@
 plugins {
-    id(Plugins.androidApplication)
-    id(Plugins.kotlinAndroid)
+    with(catalogPlugins.plugins) {
+        plugin(android.application)
+        plugin(kotlin.android)
+    }
 }
 
 android {
@@ -9,8 +11,8 @@ android {
     defaultConfig {
         minSdk = Application.minSdk
         targetSdk = Application.targetSdk
-        versionCode = Metadata.versionCode
-        versionName = Metadata.version
+        versionCode = 106
+        versionName = "1.0.6"
     }
 
     buildTypes {

@@ -1,14 +1,22 @@
-enableFeaturePreview("VERSION_CATALOGS")
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
+}
 
 dependencyResolutionManagement {
     repositories {
-        mavenCentral()
         mavenLocal()
+        mavenCentral()
+
+        google()
     }
 
     val group = "io.github.merseyside"
-    val catalogVersions = "1.2.4"
+    val catalogVersions = "1.7.9"
 
     versionCatalogs {
         val androidLibs by creating {
@@ -18,9 +26,13 @@ dependencyResolutionManagement {
         val common by creating {
             from("$group:catalog-version-common:$catalogVersions")
         }
+
+        val catalogPlugins by creating {
+            from("$group:catalog-version-plugins:$catalogVersions")
+        }
     }
 }
 
-include(":app", ":firestore-library")
+include(":firestore-coroutine-adapter")
 
-rootProject.name = "firestore-coroutines"
+rootProject.name = "mersey-firestore-coroutine-adapter"

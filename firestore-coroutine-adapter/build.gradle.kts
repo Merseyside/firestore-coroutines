@@ -1,16 +1,20 @@
 plugins {
-    id(Plugins.androidConvention)
-    id(Plugins.kotlinAndroid)
-    id(Plugins.kotlinSerialization)
-    id(Plugins.mavenPublishConfig)
+    with(catalogPlugins.plugins) {
+        plugin(android.library)
+        plugin(kotlin.android)
+        plugin(kotlin.serialization)
+        id(mersey.android.extension.id())
+        id(mersey.kotlin.extension.id())
+    }
+    `maven-publish-plugin`
 }
 
 android {
+    namespace = "com.merseyside.firestore"
     compileSdk = Application.compileSdk
 
     defaultConfig {
         minSdk = Application.minSdk
-        targetSdk = Application.targetSdk
     }
 
     buildTypes {
@@ -34,12 +38,13 @@ android {
 }
 
 val android = listOf(
-    common.merseyLib.kotlin.ext,
+    common.mersey.kotlin.ext,
     androidLibs.firebase.firestore,
     androidLibs.coroutines,
-    androidLibs.merseyLib.utils
+    androidLibs.mersey.utils
 )
 
 dependencies {
+    implementation(platform(androidLibs.firebase.bom))
     android.forEach { lib -> implementation(lib) }
 }

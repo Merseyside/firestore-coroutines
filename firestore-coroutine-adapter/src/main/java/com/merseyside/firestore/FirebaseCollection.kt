@@ -2,7 +2,7 @@ package com.merseyside.firestore
 
 import com.google.firebase.firestore.CollectionReference
 import com.merseyside.merseyLib.kotlin.extensions.isNotNullAndEmpty
-import com.merseyside.merseyLib.kotlin.extensions.log
+import com.merseyside.merseyLib.kotlin.logger.log
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -113,7 +113,7 @@ class FirebaseCollection<T: IFirestoreInstance> internal constructor(
             collection.document(documentPath).get()
                 .addOnSuccessListener { response ->
                     if (isLog) {
-                        response?.data?.log(this, "response = ")
+                        response?.data?.log(this, "response:")
                     }
 
                     val obj = response.toObject(T::class.javaObjectType)?.apply { this.documentPath = response.id }
@@ -155,7 +155,7 @@ class FirebaseCollection<T: IFirestoreInstance> internal constructor(
     suspend inline fun <reified T: IFirestoreInstance> get(
         documentPath: String
     ) = suspendCancellableCoroutine<T?> { continuation ->
-        getAsync<T>(
+        getAsync(
             documentPath = documentPath,
             onSuccess = {
                 continuation.resume(it.firstOrNull())
